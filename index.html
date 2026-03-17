@@ -67,7 +67,7 @@
         }
         .btn-backup { border-color: var(--accent); color: #006064; grid-column: span 2; box-shadow: 0 4px 0 var(--accent); }
 
-        /* --- ESTILOS DO PAINEL DE CONFIGURAÇÃO (AJUSTADO) --- */
+        /* --- AJUSTE FLEXBOX NAS CONFIGURAÇÕES --- */
         #config-panel, #backup-panel {
             display: none;
             background: var(--card);
@@ -90,8 +90,10 @@
 
         .config-box h4 { margin: 0 0 10px 0; color: var(--primary); text-transform: uppercase; font-size: 0.85rem; }
 
+        /* A mágica do Flexbox aqui */
         .config-row {
             display: flex;
+            flex-wrap: wrap; /* Permite que os itens pulem de linha se não couberem */
             gap: 8px;
             margin-bottom: 10px;
             align-items: center;
@@ -103,12 +105,13 @@
             padding: 8px;
             font-size: 0.85rem;
             color: var(--text);
+            box-sizing: border-box;
         }
 
-        .in-bus { width: 100%; font-weight: bold; color: var(--primary); }
-        .in-time { width: 65px; text-align: center; }
-        .in-aula { flex: 1; }
-        .in-sala { width: 55px; text-align: center; background: var(--accent) !important; color: white !important; font-weight: bold; }
+        .in-bus { flex: 1 1 100%; font-weight: bold; color: var(--primary); } /* Ocupa a linha toda */
+        .in-time { flex: 1 1 70px; text-align: center; min-width: 60px; }
+        .in-aula { flex: 3 1 150px; } /* Cresce mais que os outros */
+        .in-sala { flex: 1 1 60px; text-align: center; background: var(--accent) !important; color: white !important; font-weight: bold; min-width: 50px; }
 
         .btn-del {
             background: none;
@@ -117,8 +120,9 @@
             font-size: 1.2rem;
             cursor: pointer;
             box-shadow: none;
-            padding: 0 5px;
+            padding: 5px;
             font-weight: bold;
+            flex: 0 0 auto; /* Não cresce nem diminui */
         }
         /* --------------------------------------------------- */
 
@@ -189,7 +193,6 @@
     </div>
 
     <script>
-        // O código JavaScript permanece o mesmo para garantir o funcionamento correto dos dados
         const defaultData = {
             dias: [
                 { nome: "Segunda", bus: "16:15 ➔ 21:40", aulas: [["17:30", "Matéria 1", "S01"]] },
@@ -364,9 +367,9 @@
                     <div class="config-row">🚌 <input type="text" class="in-bus" value="${d.bus}" onchange="dados.dias[${i}].bus=this.value"></div>`;
                 d.aulas.forEach((aula, ai) => {
                     diaHtml += `<div class="config-row">
-                        <input type="text" class="in-time" value="${aula[0]}" onchange="dados.dias[${i}].aulas[${ai}][0]=this.value">
-                        <input type="text" class="in-aula" value="${aula[1]}" onchange="dados.dias[${i}].aulas[${ai}][1]=this.value">
-                        <input type="text" class="in-sala" value="${aula[2]}" onchange="dados.dias[${i}].aulas[${ai}][2]=this.value">
+                        <input type="text" class="in-time" placeholder="Horário" value="${aula[0]}" onchange="dados.dias[${i}].aulas[${ai}][0]=this.value">
+                        <input type="text" class="in-aula" placeholder="Matéria" value="${aula[1]}" onchange="dados.dias[${i}].aulas[${ai}][1]=this.value">
+                        <input type="text" class="in-sala" placeholder="Sala" value="${aula[2]}" onchange="dados.dias[${i}].aulas[${ai}][2]=this.value">
                         <button class="btn-del" onclick="dados.dias[${i}].aulas.splice(${ai},1); abrirEditor()">✕</button>
                     </div>`;
                 });
