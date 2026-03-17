@@ -160,7 +160,7 @@
         <div class="menu">
             <button class="btn-grades" onclick="irParaNotas()">📊 VER MINHAS NOTAS E MÉDIAS</button>
             <button class="btn-config" onclick="toggleConfig()">⚙️ EDITAR HORÁRIOS</button>
-            <button class="btn-notes" onclick="baixarNotasTxt()">📝 BAIXAR ANOTAÇÕES</button>
+            <button class="btn-notes" onclick="baixarNotasTxt()">📝 BAIXAR RESUMO (.TXT)</button>
             <button class="btn-backup" onclick="toggleBackup()">☁️ BACKUP E RESTAURAÇÃO</button>
         </div>
 
@@ -230,7 +230,7 @@
 
             dados.todos.forEach((t, i) => {
                 const status = localStorage.getItem(`chk-${i}`) === 'true' ? 'checked' : '';
-                const eHoje = (t.data === hojeData) ? 'style="color: var(--primary);"' : '';
+                const eHoje = (t.data === hojeData) ? 'style="color: var(--primary); font-weight:bold;"' : '';
                 const dataFmt = t.data ? t.data.split('-').reverse().join('/') : '';
                 html += `
                 <label class="todo-line">
@@ -331,15 +331,46 @@
         }
 
         function baixarNotasTxt() {
-            let txt = `🌸 MINHAS ANOTAÇÕES\n\n`;
+            const dataHora = new Date().toLocaleString('pt-BR');
+            let conteudo = `🌸 MEU PLANNER - RESUMO GERAL 🌸\n`;
+            conteudo += `Gerado em: ${dataHora}\n`;
+            conteudo += `==========================================\n\n`;
+
+            // 1. Lembretes da Princesa
+            const lembreteGeral = localStorage.getItem('not-geral') || "(Vazio)";
+            conteudo += `✨ LEMBRETES DA PRINCESA:\n`;
+            conteudo += `${lembreteGeral}\n\n`;
+            conteudo += `------------------------------------------\n\n`;
+
+            // 2. Checklist (Tarefas)
+            conteudo += `✅ CHECKLIST DE TAREFAS:\n`;
+            if (dados.todos.length === 0) {
+                conteudo += `Nenhuma tarefa cadastrada.\n`;
+            } else {
+                dados.todos.forEach((t, i) => {
+                    const feito = localStorage.getItem(`chk-${i}`) === 'true';
+                    const icon = feito ? "[✅ FEITO]" : "[⏰ PENDENTE]";
+                    const dataP = t.data ? ` (Prazo: ${t.data.split('-').reverse().join('/')})` : '';
+                    conteudo += `${icon} ${t.texto}${dataP}\n`;
+                });
+            }
+            conteudo += `\n------------------------------------------\n\n`;
+
+            // 3. Cadernos (Matérias)
+            conteudo += `📚 ANOTAÇÕES POR MATÉRIA:\n`;
             dados.materias.forEach(m => {
-                const n = localStorage.getItem(`not-${m}`);
-                if(n) txt += `> ${m}: ${n}\n\n`;
+                const nota = localStorage.getItem(`not-${m}`) || "(Sem anotações)";
+                conteudo += `> ${m.toUpperCase()}:\n${nota}\n\n`;
             });
-            const blob = new Blob(["\ufeff" + txt], {type: 'text/plain;charset=utf-8'});
+
+            conteudo += `==========================================\n`;
+            conteudo += `✨ Continue brilhando nos estudos! ✨`;
+
+            const blob = new Blob(["\ufeff" + conteudo], {type: 'text/plain;charset=utf-8'});
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `minhas_anotacoes.txt`;
+            const dataArquivo = new Date().toISOString().slice(0,10);
+            link.download = `anotacoes_planner_${dataArquivo}.txt`;
             link.click();
         }
 
@@ -387,9 +418,7 @@
         }
 
         function salvarEFechar() {
-            // Remove as que ficaram vazias para não sujar o visual
             dados.materias = dados.materias.filter(m => m.trim() !== "");
-            
             localStorage.setItem('ifce_fofo_v7_3', JSON.stringify(dados));
             desenharTudo();
             toggleConfig();
