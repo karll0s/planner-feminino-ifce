@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IFCE Notas - Meu Diário de Médias</title>
+    <title>IFCE Notas - Diário Acadêmico</title>
     <style>
         :root {
-            --bg: #fff5f7;
+            --bg: #ffeef2;
             --card: #ffffff;
-            --primary: #ff8c94;
-            --secondary: #ffc2d1;
-            --accent: #b0e0e6;
-            --text: #4a4a4a;
-            --success: #a7e9af;
-            --danger: #ff6b6b;
-            --warning: #ffd1d7;
-            --bus: #ffafcc;
+            --primary: #ff5d8f;
+            --secondary: #ffacc5;
+            --accent: #89ced6;
+            --text: #3d3d3d;
+            --success: #67d477;
+            --danger: #ff4d4d;
+            --warning: #ffca28;
         }
 
         body {
@@ -30,74 +29,77 @@
         }
 
         .container { width: 100%; max-width: 600px; }
-        h1 { color: var(--primary); text-align: center; margin-bottom: 20px; font-size: 1.6rem; letter-spacing: 2px; text-shadow: 1px 1px white; }
+        h1 { color: var(--primary); text-align: center; margin-bottom: 20px; font-size: 1.8rem; letter-spacing: 2px; text-shadow: 2px 2px white; font-weight: 900; }
 
-        .top-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-bottom: 20px; }
+        .top-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-bottom: 20px; }
         
         button {
             background: var(--card); color: var(--text); border: 2px solid var(--secondary); padding: 12px;
-            border-radius: 15px; font-weight: bold; cursor: pointer; font-size: 0.75rem; transition: 0.2s;
+            border-radius: 15px; font-weight: 800; cursor: pointer; font-size: 0.8rem; transition: 0.2s;
+            box-shadow: 0 4px 0 var(--secondary);
         }
-        button:hover { transform: translateY(-2px); background: #fffcfd; }
+        button:active { transform: translateY(3px); box-shadow: none; }
         
-        .btn-back { border-color: var(--accent); color: #00838f; }
-        .btn-download { border-color: var(--success); color: #2e7d32; }
-        .btn-add-np { background: var(--secondary); color: #d81b60; border: none; margin-top: 10px; width: 100%; border-radius: 12px; }
+        .btn-back { border-color: var(--accent); color: #006064; box-shadow: 0 4px 0 var(--accent); }
+        .btn-download { border-color: var(--success); color: #1b5e20; box-shadow: 0 4px 0 var(--success); }
+        .btn-add-np { background: var(--secondary); color: #c2185b; border: none; margin-top: 10px; width: 100%; border-radius: 12px; box-shadow: 0 4px 0 #f06292; }
 
         .materia-card { 
-            background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 20px; 
-            border: 1px solid #ffe0e5; width: 100%; box-sizing: border-box;
-            box-shadow: 0 4px 10px rgba(255, 140, 148, 0.05);
+            background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 25px; 
+            border: 2px solid var(--secondary); width: 100%; box-sizing: border-box;
+            box-shadow: 0 6px 15px rgba(255, 93, 143, 0.1);
         }
         .materia-header { 
             display: flex; justify-content: space-between; align-items: center; 
-            border-bottom: 2px solid var(--bg); padding-bottom: 10px; margin-bottom: 15px; 
+            border-bottom: 3px solid var(--bg); padding-bottom: 12px; margin-bottom: 15px; 
         }
-        .materia-title { color: var(--primary); font-size: 1.2rem; font-weight: bold; margin: 0; }
+        .materia-title { color: var(--primary); font-size: 1.4rem; font-weight: 900; margin: 0; }
         
         .np-box { 
             background: #fffcfd; border-radius: 15px; padding: 15px; margin-bottom: 15px; 
-            border: 1px solid #fff0f3; border-left: 5px solid var(--secondary); position: relative;
+            border: 2px solid #fff0f3; border-left: 8px solid var(--primary); position: relative;
         }
-        .np-header { display: flex; justify-content: space-between; margin-bottom: 10px; color: #d81b60; font-weight: bold; font-size: 0.9rem; }
+        .np-header { display: flex; justify-content: space-between; margin-bottom: 12px; color: #c2185b; font-weight: 900; font-size: 1rem; }
         
-        .nota-row { display: grid; grid-template-columns: 1.5fr 0.8fr 1fr 30px; gap: 8px; margin-bottom: 8px; align-items: center; }
+        .nota-row { display: grid; grid-template-columns: 1.5fr 0.7fr 0.9fr 35px; gap: 8px; margin-bottom: 10px; align-items: center; }
         input { 
-            background: white; color: var(--text); border: 1px solid #ffd1d7; padding: 8px; 
-            border-radius: 8px; font-size: 0.8rem; width: 100%; box-sizing: border-box;
+            background: white; color: var(--text); border: 2px solid #ffe0e5; padding: 10px; 
+            border-radius: 10px; font-size: 0.85rem; width: 100%; box-sizing: border-box; font-weight: 600;
         }
+        input:focus { border-color: var(--primary); outline: none; }
 
         .previsao-tag { 
-            background: #fff0f3; color: var(--primary); border: 1px dashed var(--primary);
-            padding: 8px; border-radius: 10px; font-size: 0.75rem; margin-top: 10px; font-style: italic; text-align: center;
+            background: #fff0f5; color: var(--primary); border: 2px dashed var(--primary);
+            padding: 10px; border-radius: 12px; font-size: 0.8rem; margin-top: 12px; font-weight: 700; text-align: center;
         }
 
-        .media-final-display { 
-            display: flex; justify-content: space-between; align-items: center; 
-            margin-top: 15px; padding-top: 10px; border-top: 1px dashed #ffd1d7;
+        .media-final-area { 
+            display: flex; flex-direction: column; align-items: center;
+            margin-top: 15px; padding-top: 15px; border-top: 2px dashed var(--secondary); gap: 10px;
         }
         
-        .status-badge { padding: 5px 12px; border-radius: 10px; font-size: 0.7rem; font-weight: 900; }
-        .aprovado { background: var(--success); color: #2e7d32; }
-        .recuperacao { background: #fff9c4; color: #fbc02d; }
-        .reprovado { background: var(--danger); color: #fff; }
+        .status-badge { padding: 8px 20px; border-radius: 12px; font-size: 0.8rem; font-weight: 900; letter-spacing: 1px; color: white; text-shadow: 1px 1px rgba(0,0,0,0.1); }
+        .aprovado { background: var(--success); box-shadow: 0 4px 0 #4caf50; }
+        .recuperacao { background: var(--warning); box-shadow: 0 4px 0 #fbc02d; color: #5f4b00; }
+        .reprovado { background: var(--danger); box-shadow: 0 4px 0 #d32f2f; }
 
-        .btn-del-small { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 1rem; }
+        .btn-del-small { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 1.2rem; font-weight: bold; }
         
         .semestre-input { 
-            background: transparent; border: none; border-bottom: 2px solid var(--primary); 
-            color: var(--primary); text-align: center; font-weight: bold; width: 120px; margin-bottom: 20px; font-size: 1rem;
+            background: white; border: 2px solid var(--primary); border-radius: 15px;
+            color: var(--primary); text-align: center; font-weight: 900; width: 140px; margin-bottom: 25px; padding: 8px; font-size: 1rem;
+            box-shadow: 0 4px 0 var(--secondary);
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>🌸 MEU DIÁRIO DE NOTAS</h1>
+        <h1>🌸 DIÁRIO DE NOTAS 🌸</h1>
 
         <div class="top-menu">
-            <button class="btn-back" onclick="window.location.href='index.html'">⬅️ Voltar ao Planner</button>
-            <button class="btn-download" onclick="baixarHistorico()">📥 Baixar Histórico (.txt)</button>
+            <button class="btn-back" onclick="window.location.href='index.html'">⬅️ VOLTAR AO PLANNER</button>
+            <button class="btn-download" onclick="baixarHistorico()">📥 BAIXAR HISTÓRICO</button>
         </div>
 
         <div style="text-align: center;">
@@ -108,20 +110,13 @@
     </div>
 
     <script>
-        // Carrega matérias do Planner e as notas salvas
         let listaMateriasPlanner = JSON.parse(localStorage.getItem('ufc_materias_transporte')) || [];
         let dadosNotas = JSON.parse(localStorage.getItem('ufc_sistema_notas_v1')) || {};
 
         function sincronizar() {
-            let novosDados = {};
             listaMateriasPlanner.forEach(m => {
-                if (dadosNotas[m]) {
-                    novosDados[m] = dadosNotas[m];
-                } else {
-                    novosDados[m] = { parciais: [] };
-                }
+                if (!dadosNotas[m]) dadosNotas[m] = { parciais: [] };
             });
-            dadosNotas = novosDados;
             salvar();
         }
 
@@ -133,18 +128,18 @@
             const container = document.getElementById('materias-container');
             container.innerHTML = "";
 
-            listaMateriasPlanner.forEach(mNome => {
+            Object.keys(dadosNotas).forEach(mNome => {
                 const mData = dadosNotas[mNome];
                 let htmlMateria = `
                     <div class="materia-card">
                         <div class="materia-header">
                             <h3 class="materia-title">${mNome}</h3>
-                            <button class="btn-del-small" onclick="apagarMateria('${mNome}')" title="Limpar dados">🗑️</button>
+                            <button class="btn-del-small" onclick="apagarMateria('${mNome}')">🗑️</button>
                         </div>
                         <div id="parciais-${mNome}">`;
 
-                let somaMediasParciais = 0;
-                let totalParciais = mData.parciais.length;
+                let somaMediasEtapas = 0;
+                let etapasCompletas = 0;
 
                 mData.parciais.forEach((p, pIdx) => {
                     htmlMateria += `
@@ -152,8 +147,7 @@
                             <div class="np-header">
                                 <span>✨ ${p.nome}</span>
                                 <button class="btn-del-small" onclick="removerNP('${mNome}', ${pIdx})">✕</button>
-                            </div>
-                            <div class="notas-list">`;
+                            </div>`;
 
                     let somaPonderada = 0;
                     let somaPesos = 0;
@@ -161,121 +155,103 @@
 
                     p.notas.forEach((n, nIdx) => {
                         const val = parseFloat(n.valor);
+                        const peso = parseFloat(n.peso) || 0;
                         if (!isNaN(val)) {
-                            somaPonderada += (val * n.peso);
-                            somaPesos += n.peso;
+                            somaPonderada += (val * peso);
+                            somaPesos += peso;
                         } else {
-                            notaFaltante = { tipo: n.tipo, peso: n.peso };
-                            somaPesos += n.peso;
+                            notaFaltante = { tipo: n.tipo || 'Próxima Nota', peso: peso };
+                            somaPesos += peso;
                         }
 
                         htmlMateria += `
                             <div class="nota-row">
-                                <input type="text" placeholder="Ex: Prova" value="${n.tipo}" onchange="atualizarNota('${mNome}', ${pIdx}, ${nIdx}, 'tipo', this.value)">
+                                <input type="text" placeholder="Tipo" value="${n.tipo}" onchange="atualizarNota('${mNome}', ${pIdx}, ${nIdx}, 'tipo', this.value)">
                                 <input type="number" placeholder="Peso" value="${n.peso}" onchange="atualizarNota('${mNome}', ${pIdx}, ${nIdx}, 'peso', this.value)">
                                 <input type="number" step="0.1" placeholder="Nota" value="${n.valor}" onchange="atualizarNota('${mNome}', ${pIdx}, ${nIdx}, 'valor', this.value)">
                                 <button class="btn-del-small" onclick="removerLinhaNota('${mNome}', ${pIdx}, ${nIdx})">×</button>
                             </div>`;
                     });
 
-                    let mediaNP = somaPonderada / (somaPesos || 1);
-                    
                     if (notaFaltante) {
-                        let qtoFalta = (7 * somaPesos - somaPonderada) / notaFaltante.peso;
-                        htmlMateria += `<div class="previsao-tag">🎯 Para média 7.0, tire <b>${Math.max(0, qtoFalta).toFixed(1)}</b> na ${notaFaltante.tipo || 'próxima nota'}</div>`;
-                    } else {
-                        somaMediasParciais += mediaNP;
-                        htmlMateria += `<div style="text-align:right; font-size:0.75rem; color:#2e7d32; margin-top:5px; font-weight:bold;">Média Parcial: ${mediaNP.toFixed(1)}</div>`;
+                        let qtoFalta = (7 * (somaPesos || 1) - somaPonderada) / (notaFaltante.peso || 1);
+                        htmlMateria += `<div class="previsao-tag">🎯 Para média 7.0 na etapa, tire <b>${Math.max(0, qtoFalta).toFixed(1)}</b> na ${notaFaltante.tipo}</div>`;
+                    } else if (somaPesos > 0) {
+                        let mediaEtapa = somaPonderada / somaPesos;
+                        somaMediasEtapas += mediaEtapa;
+                        etapasCompletas++;
+                        htmlMateria += `<div style="text-align:right; font-size:0.85rem; color:#1b5e20; margin-top:8px; font-weight:900;">Média da Etapa: ${mediaEtapa.toFixed(1)}</div>`;
                     }
 
                     htmlMateria += `
-                            <button style="font-size:0.65rem; margin-top:10px; padding:5px; border-style: dashed;" onclick="addLinhaNota('${mNome}', ${pIdx})">+ Adicionar Nota</button>
-                        </div>
-                    </div>`;
+                            <button style="font-size:0.7rem; margin-top:12px; padding:8px; border-style: dashed; width:100%;" onclick="addLinhaNota('${mNome}', ${pIdx})">+ ADICIONAR NOTA</button>
+                        </div>`;
                 });
 
-                let mediaFinal = totalParciais > 0 ? somaMediasParciais / totalParciais : 0;
-                let status = "reprovado"; let txtStatus = "REPROVADA";
-                if(mediaFinal >= 7) { status = "aprovado"; txtStatus = "APROVADA! 💖"; }
-                else if(mediaFinal >= 4) { status = "recuperacao"; txtStatus = "RECUPERAÇÃO"; }
+                let mediaFinal = etapasCompletas > 0 ? somaMediasEtapas / etapasCompletas : 0;
+                let statusClass = "reprovado"; let statusTxt = "REPROVADA";
+                if(mediaFinal >= 7) { statusClass = "aprovado"; statusTxt = "APROVADA! 💖"; }
+                else if(mediaFinal >= 4) { statusClass = "recuperacao"; statusTxt = "RECUPERAÇÃO"; }
 
                 htmlMateria += `
                         </div>
-                        <button class="btn-add-np" onclick="addNP('${mNome}')">+ Nova Etapa (NP${totalParciais + 1})</button>
-                        <div class="media-final-display">
-                            <span>Média Final: <b style="color:var(--primary)">${mediaFinal.toFixed(1)}</b></span>
-                            <span class="status-badge ${status}">${txtStatus}</span>
+                        <button class="btn-add-np" onclick="addNP('${mNome}')">+ NOVA ETAPA (NP${mData.parciais.length + 1})</button>
+                        <div class="media-final-area">
+                            <span style="font-weight:900; font-size:1.1rem;">Média Semestral: <span style="color:var(--primary)">${mediaFinal.toFixed(1)}</span></span>
+                            <span class="status-badge ${statusClass}">${statusTxt}</span>
                         </div>
                     </div>`;
                 container.innerHTML += htmlMateria;
             });
         }
 
+        // Funções de Lógica (Mesma estrutura v7.3 com pequenos ajustes)
         function addNP(m) {
             dadosNotas[m].parciais.push({ nome: 'NP' + (dadosNotas[m].parciais.length + 1), notas: [] });
             salvar(); renderizar();
         }
-
         function removerNP(m, idx) {
-            if(confirm("Apagar esta etapa inteira?")) {
-                dadosNotas[m].parciais.splice(idx, 1);
-                salvar(); renderizar();
-            }
+            if(confirm("Apagar etapa?")) { dadosNotas[m].parciais.splice(idx, 1); salvar(); renderizar(); }
         }
-
         function addLinhaNota(m, pIdx) {
             dadosNotas[m].parciais[pIdx].notas.push({ tipo: '', peso: 1, valor: '' });
             salvar(); renderizar();
         }
-
         function removerLinhaNota(m, pIdx, nIdx) {
             dadosNotas[m].parciais[pIdx].notas.splice(nIdx, 1);
             salvar(); renderizar();
         }
-
         function atualizarNota(m, pIdx, nIdx, campo, valor) {
-            dadosNotas[m].parciais[pIdx].notas[nIdx][campo] = campo === 'peso' ? parseFloat(valor) : valor;
+            dadosNotas[m].parciais[pIdx].notas[nIdx][campo] = valor;
             salvar(); renderizar();
         }
-
         function apagarMateria(m) {
-            if(confirm(`Limpar todos os registros de ${m}?`)) {
-                dadosNotas[m] = { parciais: [] };
-                salvar(); renderizar();
-            }
+            if(confirm(`Limpar notas de ${m}?`)) { dadosNotas[m] = { parciais: [] }; salvar(); renderizar(); }
         }
 
         function baixarHistorico() {
-            const semestre = document.getElementById('input-semestre').value;
-            let txt = `🌸 MEU HISTÓRICO ACADÊMICO - ${semestre}\n`;
-            txt += `Gerado em: ${new Date().toLocaleString()}\n`;
-            txt += `------------------------------------------\n\n`;
-
-            listaMateriasPlanner.forEach(m => {
+            const sem = document.getElementById('input-semestre').value;
+            let txt = `🌸 HISTÓRICO ACADÊMICO - ${sem} 🌸\n\n`;
+            Object.keys(dadosNotas).forEach(m => {
                 const data = dadosNotas[m];
-                txt += `📚 MATÉRIA: ${m.toUpperCase()}\n`;
-                let somaP = 0;
+                txt += `📚 ${m.toUpperCase()}\n`;
+                let soma = 0; let cont = 0;
                 data.parciais.forEach(p => {
-                    let sPond = 0; let sPes = 0;
-                    txt += `   [${p.nome}]: `;
+                    let sp = 0; let sw = 0;
                     p.notas.forEach(n => {
-                        txt += `${n.tipo || 'Nota'}=${n.valor || '0'} (P${n.peso}) | `;
-                        sPond += (parseFloat(n.valor) || 0) * n.peso;
-                        sPes += n.peso;
+                        sp += (parseFloat(n.valor) || 0) * (parseFloat(n.peso) || 0);
+                        sw += (parseFloat(n.peso) || 0);
                     });
-                    let mNP = sPond / (sPes || 1);
-                    somaP += mNP;
-                    txt += ` -> Média: ${mNP.toFixed(1)}\n`;
+                    let mEtapa = sp / (sw || 1);
+                    soma += mEtapa; cont++;
+                    txt += `   [${p.nome}]: Média ${mEtapa.toFixed(1)}\n`;
                 });
-                let mF = data.parciais.length > 0 ? somaP / data.parciais.length : 0;
-                txt += `   >>> MÉDIA SEMESTRAL: ${mF.toFixed(1)} <<<\n`;
-                txt += `------------------------------------------\n\n`;
+                txt += `   >> MÉDIA FINAL: ${(cont > 0 ? soma/cont : 0).toFixed(1)}\n\n`;
             });
-
             const blob = new Blob(["\ufeff" + txt], {type: 'text/plain;charset=utf-8'});
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `Meu_Historico_${semestre}.txt`;
+            link.download = `Historico_${sem}.txt`;
             link.click();
         }
 
