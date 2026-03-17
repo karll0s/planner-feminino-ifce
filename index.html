@@ -6,14 +6,14 @@
     <title>IFCE Planner Fofo</title>
     <style>
         :root {
-            --bg: #ffeef2; /* Fundo mais saturado */
+            --bg: #ffeef2;
             --card: #ffffff;
-            --primary: #ff5d8f; /* Rosa mais vibrante e escuro para contraste */
-            --secondary: #ffacc5; /* Rosa médio */
-            --accent: #89ced6; /* Azul bebê mais definido */
-            --text: #3d3d3d; /* Texto mais escuro para leitura */
+            --primary: #ff5d8f;
+            --secondary: #ffacc5;
+            --accent: #89ced6;
+            --text: #3d3d3d;
             --bus: #ff85a1;
-            --success: #67d477; /* Verde mais vivo */
+            --success: #67d477;
             --danger: #ff4d4d;
             --highlight: #ffc2d1;
         }
@@ -67,13 +67,8 @@
         }
         .btn-backup { border-color: var(--accent); color: #006064; grid-column: span 2; box-shadow: 0 4px 0 var(--accent); }
 
-        /* Estilo da Adição Rápida no Card */
-        .quick-add { display: flex; gap: 8px; margin-bottom: 15px; background: #fff5f7; padding: 10px; border-radius: 12px; border: 1px solid var(--secondary); }
-        .quick-add input[type="text"] { flex: 1; border: 1px solid var(--secondary); border-radius: 8px; padding: 8px; }
-        .quick-add input[type="date"] { width: 120px; border: 1px solid var(--secondary); border-radius: 8px; padding: 5px; font-size: 0.7rem; }
-        .btn-add-quick { background: var(--success); color: white; border: none; padding: 8px 15px; border-radius: 8px; box-shadow: 0 3px 0 #4caf50; }
-
-        #backup-panel, #config-panel {
+        /* --- ESTILOS DO PAINEL DE CONFIGURAÇÃO (AJUSTADO) --- */
+        #config-panel, #backup-panel {
             display: none;
             background: var(--card);
             border-radius: 20px;
@@ -84,6 +79,48 @@
             box-shadow: 0 10px 30px rgba(255, 93, 143, 0.2);
             border: 3px solid var(--primary);
         }
+
+        .config-box {
+            background: #fff5f7;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 1px solid var(--secondary);
+        }
+
+        .config-box h4 { margin: 0 0 10px 0; color: var(--primary); text-transform: uppercase; font-size: 0.85rem; }
+
+        .config-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        #config-panel input {
+            border: 1px solid var(--secondary);
+            border-radius: 10px;
+            padding: 8px;
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .in-bus { width: 100%; font-weight: bold; color: var(--primary); }
+        .in-time { width: 65px; text-align: center; }
+        .in-aula { flex: 1; }
+        .in-sala { width: 55px; text-align: center; background: var(--accent) !important; color: white !important; font-weight: bold; }
+
+        .btn-del {
+            background: none;
+            border: none;
+            color: var(--danger);
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: none;
+            padding: 0 5px;
+            font-weight: bold;
+        }
+        /* --------------------------------------------------- */
 
         .section-title { color: var(--primary); text-transform: uppercase; font-size: 0.9rem; margin: 30px 0 12px 0; border-bottom: 3px solid var(--primary); width: 100%; letter-spacing: 2px; font-weight: 900; text-align: center; background: white; padding: 5px 0; border-radius: 10px 10px 0 0; }
         .card { background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 2px solid var(--secondary); width: 100%; box-sizing: border-box; box-shadow: 0 6px 12px rgba(255, 140, 148, 0.1); }
@@ -100,12 +137,14 @@
         .time { color: var(--primary); font-weight: 900; margin-right: 8px; }
         .sala { color: white; font-weight: bold; background: var(--accent); padding: 3px 10px; border-radius: 10px; font-size: 0.8rem; box-shadow: 0 2px 0 #6ebcc5; }
 
-        textarea { width: 100%; background: #fff; color: var(--text); border: 2px solid var(--secondary); border-radius: 12px; padding: 12px; margin-top: 10px; min-height: 100px; resize: none; box-sizing: border-box; font-family: inherit; font-size: 1rem; font-weight: 500; }
-        textarea:focus { border-color: var(--primary); outline: none; }
+        textarea { width: 100%; background: #fff; color: var(--text); border: 2px solid var(--secondary); border-radius: 12px; padding: 12px; margin-top: 10px; min-height: 100px; resize: none; box-sizing: border-box; font-family: inherit; font-size: 1rem; }
 
         .todo-line { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #ffe0e5; }
         .todo-line input[type="checkbox"] { width: 24px; height: 24px; accent-color: var(--primary); cursor: pointer; }
-        .todo-text { flex: 1; font-weight: 600; }
+
+        .quick-add { display: flex; gap: 8px; margin-bottom: 15px; background: #fff5f7; padding: 10px; border-radius: 12px; border: 1px solid var(--secondary); }
+        .quick-add input[type="text"] { flex: 1; border: 1px solid var(--secondary); border-radius: 8px; padding: 8px; }
+        .btn-add-quick { background: var(--success); color: white; border: none; padding: 8px 15px; border-radius: 8px; box-shadow: 0 3px 0 #4caf50; }
 
         .btn-clean { background: white; border: 2px solid var(--danger); color: var(--danger); width: 100%; margin-top: 15px; padding: 10px; font-weight: 800; border-radius: 12px; }
 
@@ -132,7 +171,7 @@
                 <button onclick="document.getElementById('importFile').click()" style="border-color: var(--accent); color: #006064;">📥 Importar</button>
                 <input type="file" id="importFile" accept=".json" onchange="importarBackup(this)">
             </div>
-            <button onclick="toggleBackup()" style="margin-top: 15px; border:none; background:none; color: #999; font-weight: bold;">[ FECHAR ]</button>
+            <button onclick="toggleBackup()" style="margin-top: 15px; border:none; background:none; color: #999; font-weight: bold; cursor:pointer;">[ FECHAR ]</button>
         </div>
 
         <div id="config-panel">
@@ -141,15 +180,16 @@
 
             <h3 style="color: var(--accent)">📖 Minhas Matérias</h3>
             <div id="mats-editor"></div>
-            <button onclick="addItem('materias')" style="width:100%; padding:12px; margin-top:10px; border-color: var(--accent);">+ Nova Matéria</button>
+            <button onclick="addItem('materias')" style="width:100%; padding:12px; margin-top:10px; border-color: var(--accent); box-shadow: 0 4px 0 var(--accent);">+ Nova Matéria</button>
 
-            <button style="background: var(--primary); color: white; border: none; width: 100%; margin: 30px 0 10px 0; padding: 20px; border-radius: 15px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 6px 0 #d81b60;" onclick="salvarEFechar()">💖 SALVAR ALTERAÇÕES</button>
+            <button style="background: var(--primary); color: white; border: none; width: 100%; margin: 30px 0 10px 0; padding: 20px; border-radius: 15px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 6px 0 #d81b60; cursor:pointer;" onclick="salvarEFechar()">💖 SALVAR ALTERAÇÕES</button>
         </div>
 
         <div id="render-area"></div>
     </div>
 
     <script>
+        // O código JavaScript permanece o mesmo para garantir o funcionamento correto dos dados
         const defaultData = {
             dias: [
                 { nome: "Segunda", bus: "16:15 ➔ 21:40", aulas: [["17:30", "Matéria 1", "S01"]] },
@@ -178,7 +218,6 @@
             html += '<div class="section-title">✨ Lembretes da Princesa</div>';
             html += '<div class="card"><textarea id="not-geral" placeholder="Escreva aqui pensamentos importantes..."></textarea></div>';
 
-            // CARD DE CHECKLIST COM ADIÇÃO RÁPIDA
             html += '<div class="section-title">✅ Tarefinhas do Dia</div><div class="card">';
             html += `
                 <div class="quick-add">
@@ -199,12 +238,11 @@
                     <input type="checkbox" id="chk-${i}" ${status} onchange="localStorage.setItem(this.id, this.checked)">
                     <span class="todo-text" ${eHoje}>${t.texto}</span>
                     ${t.data ? `<span style="font-size:0.75rem; color:var(--primary); font-weight:bold;">📅 ${dataFmt}</span>` : ''}
-                    <button onclick="removerTodo(${i})" style="background:none; border:none; color:var(--danger); margin-left:10px; cursor:pointer;">✕</button>
+                    <button onclick="removerTodo(${i})" class="btn-del">✕</button>
                 </label>`;
             });
             html += `</div><button class="btn-clean" onclick="limparConcluidos()">🧹 Limpar Concluídas</button></div>`;
 
-            // CRONOGRAMA
             html += '<div class="section-title">📅 Meu Cronograma</div>';
             dados.dias.forEach(d => {
                 const eHoje = (d.nome === hojeNome) ? 'today-highlight' : '';
@@ -217,7 +255,6 @@
                 html += `</div>`;
             });
 
-            // ANOTAÇÕES
             html += '<div class="section-title">📚 Meus Cadernos</div>';
             dados.materias.forEach(m => {
                 html += `<div class="card"><h2>${m}</h2><textarea id="not-${m}" placeholder="Anotações de ${m}..."></textarea></div>`;
@@ -227,11 +264,10 @@
             recuperarNotas();
         }
 
-        // FUNÇÕES DA CHECKLIST
         function addTodoRapido() {
             const txt = document.getElementById('new-todo-text').value;
             const data = document.getElementById('new-todo-date').value;
-            if(!txt) return alert("Escreva a tarefa!");
+            if(!txt) return;
             dados.todos.push({texto: txt, data: data});
             localStorage.setItem('ifce_fofo_v7_3', JSON.stringify(dados));
             desenharTudo();
@@ -262,7 +298,6 @@
             });
         }
 
-        // BACKUP
         function baixarEstrutura() {
             const backupTotal = {
                 config: dados,
@@ -276,7 +311,7 @@
             const blob = new Blob(["\ufeff" + JSON.stringify(backupTotal, null, 2)], {type: 'application/json'});
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `backup_planner_vibrante.json`;
+            link.download = `backup_planner_fofo.json`;
             link.click();
         }
 
@@ -335,7 +370,7 @@
                         <button class="btn-del" onclick="dados.dias[${i}].aulas.splice(${ai},1); abrirEditor()">✕</button>
                     </div>`;
                 });
-                diaHtml += `<button onclick="dados.dias[${i}].aulas.push(['','','']); abrirEditor()" style="width:100%; font-size:0.75rem;">+ Aula</button></div>`;
+                diaHtml += `<button onclick="dados.dias[${i}].aulas.push(['','','']); abrirEditor()" style="width:100%; font-size:0.75rem; box-shadow:none;">+ Adicionar Aula</button></div>`;
                 dEd.innerHTML += diaHtml;
             });
             mEd.innerHTML = "";
