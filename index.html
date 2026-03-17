@@ -67,7 +67,6 @@
         }
         .btn-backup { border-color: var(--accent); color: #006064; grid-column: span 2; box-shadow: 0 4px 0 var(--accent); }
 
-        /* --- AJUSTE FLEXBOX NAS CONFIGURAÇÕES --- */
         #config-panel, #backup-panel {
             display: none;
             background: var(--card);
@@ -90,10 +89,9 @@
 
         .config-box h4 { margin: 0 0 10px 0; color: var(--primary); text-transform: uppercase; font-size: 0.85rem; }
 
-        /* A mágica do Flexbox aqui */
         .config-row {
             display: flex;
-            flex-wrap: wrap; /* Permite que os itens pulem de linha se não couberem */
+            flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 10px;
             align-items: center;
@@ -108,9 +106,9 @@
             box-sizing: border-box;
         }
 
-        .in-bus { flex: 1 1 100%; font-weight: bold; color: var(--primary); } /* Ocupa a linha toda */
+        .in-bus { flex: 1 1 100%; font-weight: bold; color: var(--primary); }
         .in-time { flex: 1 1 70px; text-align: center; min-width: 60px; }
-        .in-aula { flex: 3 1 150px; } /* Cresce mais que os outros */
+        .in-aula { flex: 3 1 150px; }
         .in-sala { flex: 1 1 60px; text-align: center; background: var(--accent) !important; color: white !important; font-weight: bold; min-width: 50px; }
 
         .btn-del {
@@ -122,9 +120,8 @@
             box-shadow: none;
             padding: 5px;
             font-weight: bold;
-            flex: 0 0 auto; /* Não cresce nem diminui */
+            flex: 0 0 auto;
         }
-        /* --------------------------------------------------- */
 
         .section-title { color: var(--primary); text-transform: uppercase; font-size: 0.9rem; margin: 30px 0 12px 0; border-bottom: 3px solid var(--primary); width: 100%; letter-spacing: 2px; font-weight: 900; text-align: center; background: white; padding: 5px 0; border-radius: 10px 10px 0 0; }
         .card { background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 2px solid var(--secondary); width: 100%; box-sizing: border-box; box-shadow: 0 6px 12px rgba(255, 140, 148, 0.1); }
@@ -169,7 +166,6 @@
 
         <div id="backup-panel">
             <h3 style="margin-top:0; color: var(--primary)">Gerenciar Meus Dados</h3>
-            <p style="font-size: 0.8rem; color: #555; margin-bottom: 15px;">Dica: Faça backup sempre que mudar suas notas!</p>
             <div style="display: flex; gap: 10px; justify-content: center;">
                 <button onclick="baixarEstrutura()" style="border-color: var(--success); color: #1b5e20;">📤 Exportar</button>
                 <button onclick="document.getElementById('importFile').click()" style="border-color: var(--accent); color: #006064;">📥 Importar</button>
@@ -184,7 +180,7 @@
 
             <h3 style="color: var(--accent)">📖 Minhas Matérias</h3>
             <div id="mats-editor"></div>
-            <button onclick="addItem('materias')" style="width:100%; padding:12px; margin-top:10px; border-color: var(--accent); box-shadow: 0 4px 0 var(--accent);">+ Nova Matéria</button>
+            <button onclick="addItem()" style="width:100%; padding:12px; margin-top:10px; border-color: var(--accent); box-shadow: 0 4px 0 var(--accent);">+ Nova Matéria</button>
 
             <button style="background: var(--primary); color: white; border: none; width: 100%; margin: 30px 0 10px 0; padding: 20px; border-radius: 15px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 6px 0 #d81b60; cursor:pointer;" onclick="salvarEFechar()">💖 SALVAR ALTERAÇÕES</button>
         </div>
@@ -364,12 +360,12 @@
             dEd.innerHTML = "";
             dados.dias.forEach((d, i) => {
                 let diaHtml = `<div class="config-box"><h4>${d.nome}</h4>
-                    <div class="config-row">🚌 <input type="text" class="in-bus" value="${d.bus}" onchange="dados.dias[${i}].bus=this.value"></div>`;
+                    <div class="config-row">🚌 <input type="text" class="in-bus" value="${d.bus}" oninput="dados.dias[${i}].bus=this.value"></div>`;
                 d.aulas.forEach((aula, ai) => {
                     diaHtml += `<div class="config-row">
-                        <input type="text" class="in-time" placeholder="Horário" value="${aula[0]}" onchange="dados.dias[${i}].aulas[${ai}][0]=this.value">
-                        <input type="text" class="in-aula" placeholder="Matéria" value="${aula[1]}" onchange="dados.dias[${i}].aulas[${ai}][1]=this.value">
-                        <input type="text" class="in-sala" placeholder="Sala" value="${aula[2]}" onchange="dados.dias[${i}].aulas[${ai}][2]=this.value">
+                        <input type="text" class="in-time" placeholder="Horário" value="${aula[0]}" oninput="dados.dias[${i}].aulas[${ai}][0]=this.value">
+                        <input type="text" class="in-aula" placeholder="Matéria" value="${aula[1]}" oninput="dados.dias[${i}].aulas[${ai}][1]=this.value">
+                        <input type="text" class="in-sala" placeholder="Sala" value="${aula[2]}" oninput="dados.dias[${i}].aulas[${ai}][2]=this.value">
                         <button class="btn-del" onclick="dados.dias[${i}].aulas.splice(${ai},1); abrirEditor()">✕</button>
                     </div>`;
                 });
@@ -379,18 +375,21 @@
             mEd.innerHTML = "";
             dados.materias.forEach((m, i) => {
                 mEd.innerHTML += `<div class="config-row">
-                    <input type="text" value="${m}" onchange="dados.materias[i]=this.value" style="flex:1">
+                    <input type="text" value="${m}" oninput="dados.materias[${i}]=this.value" style="flex:1" placeholder="Nome da matéria">
                     <button class="btn-del" onclick="dados.materias.splice(${i},1); abrirEditor()">✕</button>
                 </div>`;
             });
         }
 
-        function addItem(tipo) {
-            dados.materias.push("");
+        function addItem() {
+            dados.materias.push("Nova Matéria");
             abrirEditor();
         }
 
         function salvarEFechar() {
+            // Remove as que ficaram vazias para não sujar o visual
+            dados.materias = dados.materias.filter(m => m.trim() !== "");
+            
             localStorage.setItem('ifce_fofo_v7_3', JSON.stringify(dados));
             desenharTudo();
             toggleConfig();
